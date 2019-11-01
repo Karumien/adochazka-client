@@ -8,9 +8,10 @@
 
 package com.karumien.client.adochazka.schemas;
 
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="VygenerujResult" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *         &lt;element name="VratDochazkuMesicResult" type="{http://schemas.datacontract.org/2004/07/HolyAttendanceWS.WS.Customer}CustomerDataMesic" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +37,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "vygenerujResult"
+    "vratDochazkuMesicResult"
 })
-@XmlRootElement(name = "VygenerujResponse", namespace = "http://schemas.holypos.com/holyattendance")
-public class VygenerujResponse {
+@XmlRootElement(name = "VratDochazkuMesicResponse", namespace = "http://schemas.holypos.com/holyattendance")
+public class VratDochazkuMesicResponse {
 
-    @XmlElement(name = "VygenerujResult", namespace = "http://schemas.holypos.com/holyattendance")
-    protected Boolean vygenerujResult;
+    @XmlElementRef(name = "VratDochazkuMesicResult", namespace = "http://schemas.holypos.com/holyattendance", type = JAXBElement.class, required = false)
+    protected JAXBElement<CustomerDataMesic> vratDochazkuMesicResult;
 
     /**
-     * Gets the value of the vygenerujResult property.
+     * Gets the value of the vratDochazkuMesicResult property.
      * 
      * @return
      *     possible object is
-     *     {@link Boolean }
+     *     {@link JAXBElement }{@code <}{@link CustomerDataMesic }{@code >}
      *     
      */
-    public Boolean isVygenerujResult() {
-        return vygenerujResult;
+    public JAXBElement<CustomerDataMesic> getVratDochazkuMesicResult() {
+        return vratDochazkuMesicResult;
     }
 
     /**
-     * Sets the value of the vygenerujResult property.
+     * Sets the value of the vratDochazkuMesicResult property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Boolean }
+     *     {@link JAXBElement }{@code <}{@link CustomerDataMesic }{@code >}
      *     
      */
-    public void setVygenerujResult(Boolean value) {
-        this.vygenerujResult = value;
+    public void setVratDochazkuMesicResult(JAXBElement<CustomerDataMesic> value) {
+        this.vratDochazkuMesicResult = value;
     }
 
 }

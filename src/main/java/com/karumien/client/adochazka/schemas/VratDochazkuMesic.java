@@ -11,6 +11,7 @@ package com.karumien.client.adochazka.schemas;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -28,6 +29,9 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="heslo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="Rok" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
+ *         &lt;element name="Mesic" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
+ *         &lt;element name="UzivatelId" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -39,15 +43,24 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "id",
-    "heslo"
+    "heslo",
+    "rok",
+    "mesic",
+    "uzivatelId"
 })
-@XmlRootElement(name = "VratPritomnost", namespace = "http://schemas.holypos.com/holyattendance")
-public class VratPritomnost {
+@XmlRootElement(name = "VratDochazkuMesic", namespace = "http://schemas.holypos.com/holyattendance")
+public class VratDochazkuMesic {
 
     @XmlElementRef(name = "ID", namespace = "http://schemas.holypos.com/holyattendance", type = JAXBElement.class, required = false)
     protected JAXBElement<String> id;
     @XmlElementRef(name = "heslo", namespace = "http://schemas.holypos.com/holyattendance", type = JAXBElement.class, required = false)
     protected JAXBElement<String> heslo;
+    @XmlElement(name = "Rok", namespace = "http://schemas.holypos.com/holyattendance")
+    protected Integer rok;
+    @XmlElement(name = "Mesic", namespace = "http://schemas.holypos.com/holyattendance")
+    protected Integer mesic;
+    @XmlElement(name = "UzivatelId", namespace = "http://schemas.holypos.com/holyattendance")
+    protected Integer uzivatelId;
 
     /**
      * Gets the value of the id property.
@@ -95,6 +108,78 @@ public class VratPritomnost {
      */
     public void setHeslo(JAXBElement<String> value) {
         this.heslo = value;
+    }
+
+    /**
+     * Gets the value of the rok property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getRok() {
+        return rok;
+    }
+
+    /**
+     * Sets the value of the rok property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setRok(Integer value) {
+        this.rok = value;
+    }
+
+    /**
+     * Gets the value of the mesic property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getMesic() {
+        return mesic;
+    }
+
+    /**
+     * Sets the value of the mesic property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setMesic(Integer value) {
+        this.mesic = value;
+    }
+
+    /**
+     * Gets the value of the uzivatelId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getUzivatelId() {
+        return uzivatelId;
+    }
+
+    /**
+     * Sets the value of the uzivatelId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setUzivatelId(Integer value) {
+        this.uzivatelId = value;
     }
 
 }

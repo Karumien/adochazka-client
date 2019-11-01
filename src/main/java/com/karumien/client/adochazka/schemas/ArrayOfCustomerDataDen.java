@@ -17,16 +17,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ArrayOfPristup complex type.
+ * <p>Java class for ArrayOfCustomerDataDen complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ArrayOfPristup"&gt;
+ * &lt;complexType name="ArrayOfCustomerDataDen"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="Pristup" type="{http://schemas.datacontract.org/2004/07/HolyAttendance.WS.Customer}Pristup" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="CustomerDataDen" type="{http://schemas.datacontract.org/2004/07/HolyAttendanceWS.WS.Customer}CustomerDataDen" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,41 +36,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ArrayOfPristup", propOrder = {
-    "pristup"
+@XmlType(name = "ArrayOfCustomerDataDen", namespace = "http://schemas.datacontract.org/2004/07/HolyAttendanceWS.WS.Customer", propOrder = {
+    "customerDataDen"
 })
-public class ArrayOfPristup {
+public class ArrayOfCustomerDataDen {
 
-    @XmlElement(name = "Pristup", nillable = true)
-    protected List<Pristup> pristup;
+    @XmlElement(name = "CustomerDataDen", nillable = true)
+    protected List<CustomerDataDen> customerDataDen;
 
     /**
-     * Gets the value of the pristup property.
+     * Gets the value of the customerDataDen property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the pristup property.
+     * This is why there is not a <CODE>set</CODE> method for the customerDataDen property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getPristup().add(newItem);
+     *    getCustomerDataDen().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Pristup }
+     * {@link CustomerDataDen }
      * 
      * 
      */
-    public List<Pristup> getPristup() {
-        if (pristup == null) {
-            pristup = new ArrayList<Pristup>();
+    public List<CustomerDataDen> getCustomerDataDen() {
+        if (customerDataDen == null) {
+            customerDataDen = new ArrayList<CustomerDataDen>();
         }
-        return this.pristup;
+        return this.customerDataDen;
     }
 
 }

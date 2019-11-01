@@ -7,16 +7,10 @@
 package com.karumien.client.adochazka.service;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,12 +19,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 import com.karumien.client.adochazka.SOAPConnector;
+import com.karumien.client.adochazka.schemas.CustomerDataDen;
 import com.karumien.client.adochazka.schemas.Dochazka;
 import com.karumien.client.adochazka.schemas.ObjectFactory;
 import com.karumien.client.adochazka.schemas.Pristup;
 import com.karumien.client.adochazka.schemas.Pritomnost;
 import com.karumien.client.adochazka.schemas.Uzivatel;
 import com.karumien.client.adochazka.schemas.VratDochazku;
+import com.karumien.client.adochazka.schemas.VratDochazkuMesic;
+import com.karumien.client.adochazka.schemas.VratDochazkuMesicResponse;
 import com.karumien.client.adochazka.schemas.VratDochazkuResponse;
 import com.karumien.client.adochazka.schemas.VratPristupy;
 import com.karumien.client.adochazka.schemas.VratPristupyResponse;
@@ -123,6 +120,29 @@ public class ADochazkaServiceImpl implements ADochazkaService {
      * {@inheritDoc}
      */
     @Override
+    public List<CustomerDataDen> getWorkMonth(Integer year, Integer month, Integer userId) {
+    
+        VratDochazkuMesic request = new VratDochazkuMesic();
+        
+        ObjectFactory factory = new ObjectFactory();
+        request.setID(factory.createVratDochazkuMesicID(id));
+        request.setHeslo(factory.createVratDochazkuMesicHeslo(pwd));
+        request.setMesic(month);
+        request.setRok(year);
+        request.setUzivatelId(userId);
+        
+        VratDochazkuMesicResponse response = (VratDochazkuMesicResponse) connector.getWebServiceTemplate().marshalSendAndReceive(request,
+                new SoapActionCallback("http://schemas.holypos.com/holyattendance/ICustomerService/VratDochazkuMesic"));
+        
+        return response.getVratDochazkuMesicResult().isNil() || response.getVratDochazkuMesicResult().getValue().getCustomerDataDen().isNil() 
+                || response.getVratDochazkuMesicResult().getValue().getCustomerDataDen().getValue().getCustomerDataDen().isEmpty() ? 
+                    Collections.emptyList() : response.getVratDochazkuMesicResult().getValue().getCustomerDataDen().getValue().getCustomerDataDen();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean generate() {
 
         Vygeneruj request = new Vygeneruj();
@@ -157,18 +177,6 @@ public class ADochazkaServiceImpl implements ADochazkaService {
                 || response.getVratDochazkuResult().getValue().getDochazka().getValue().getDochazka().isEmpty() ? 
                     Collections.emptyList() : response.getVratDochazkuResult().getValue().getDochazka().getValue().getDochazka();
     }
-
-    private static XMLGregorianCalendar toXMLGregorianCalendar(OffsetDateTime from) {
-        
-        GregorianCalendar gcal = GregorianCalendar.from(from.toLocalDate().atStartOfDay(ZoneId.systemDefault()));
-        try {
-            return DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
-        } catch (DatatypeConfigurationException e) {
-            e.printStackTrace();
-        }
-        
-        return null;
-    }
     
     @Override
     @Cacheable(value = "users")
@@ -177,6 +185,15 @@ public class ADochazkaServiceImpl implements ADochazkaService {
                 .collect(
                     HashMap<String, Uzivatel>::new, 
                     (m, c) -> m.put(c.getCislo().getValue(), c),
+                    (m, u) -> {});
+    }
+    
+    @Override
+//    @Cacheable(value = "users")
+    public Map<Integer, CustomerDataDen> getWorkMonthMap(Integer year, Integer month, Integer userId) {
+        return getWorkMonth(year, month, userId).stream().collect(
+                    HashMap<Integer, CustomerDataDen>::new, 
+                    (m, c) -> m.put(toOffsetDateTime(c.getDatum()).getDayOfMonth(), c),
                     (m, u) -> {});
     }
 
