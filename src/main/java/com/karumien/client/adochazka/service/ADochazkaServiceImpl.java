@@ -169,7 +169,7 @@ public class ADochazkaServiceImpl implements ADochazkaService {
         request.setID(factory.createVratDochazkuID(id));
         request.setHeslo(factory.createVratDochazkuHeslo(pwd));
         request.setDatumOd(toXMLGregorianCalendar(from));
-        
+
         VratDochazkuResponse response = (VratDochazkuResponse) connector.getWebServiceTemplate().marshalSendAndReceive(request,
                 new SoapActionCallback("http://schemas.holypos.com/holyattendance/ICustomerService/VratDochazku"));
         
